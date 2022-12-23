@@ -18,4 +18,6 @@ public class PepseGameManager extends GameManager {
         super.initializeGame(imageReader, soundReader, inputListener, windowController);
         Sky.create(this.gameObjects(), windowController.getWindowDimensions(), Layer.BACKGROUND);
     }
+
+
 }
