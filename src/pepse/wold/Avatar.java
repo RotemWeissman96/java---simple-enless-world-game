@@ -1,2 +1,4 @@
-package pepse.wold;public class Avatar {
+package pepse.wold;
+
+public class Avatar {
 }
