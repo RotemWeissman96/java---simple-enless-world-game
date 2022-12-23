@@ -1,10 +1,12 @@
 package pepse;
 
 import danogl.GameManager;
+import danogl.collisions.Layer;
 import danogl.gui.ImageReader;
 import danogl.gui.SoundReader;
 import danogl.gui.UserInputListener;
 import danogl.gui.WindowController;
+import pepse.wold.Sky;
 
 public class PepseGameManager extends GameManager {
     public static void main(String[] args) {
@@ -14,5 +16,6 @@ public class PepseGameManager extends GameManager {
     @Override
     public void initializeGame(ImageReader imageReader, SoundReader soundReader, UserInputListener inputListener, WindowController windowController) {
         super.initializeGame(imageReader, soundReader, inputListener, windowController);
+        Sky.create(this.gameObjects(), windowController.getWindowDimensions(), Layer.BACKGROUND);
     }
 }
