@@ -13,5 +13,6 @@ public class Main {
     public void rotemTesting(){
         System.out.println("Hello world!");
         System.out.println("rotem");
+        System.out.println("rotem");
     }
 }
