@@ -1,4 +1,4 @@
 package pepse.wold;
 
-public class Sky {
+public class Terrain {
 }

@@ -1,2 +1,4 @@
-package pepse;public class PepseGameManager {
+package pepse;
+
+public class PepseGameManager {
 }

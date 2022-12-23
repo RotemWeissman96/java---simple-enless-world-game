@@ -1,4 +1,4 @@
-package wold;
+package pepse.wold;
 
 public class Block {
 }

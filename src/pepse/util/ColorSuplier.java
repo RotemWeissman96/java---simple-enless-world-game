@@ -1,2 +1,4 @@
-package pepse.util;public class ColorSuplier {
+package pepse.util;
+
+public class ColorSuplier {
 }
