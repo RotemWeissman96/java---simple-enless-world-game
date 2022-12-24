@@ -15,6 +15,14 @@ public class Night {
     private static final Float MIDNIGHT_OPACITY = 0.5f;
 
 
+    /**
+     * a static function to create the night
+     * @param gameObjects where we add all the game objects
+     * @param layer  the layer where the night should be
+     * @param windowDimensions the window itself
+     * @param cycleLength the cycle of the night
+     * @return the game object night
+     */
     public static GameObject create(
             GameObjectCollection gameObjects,
             int layer,
