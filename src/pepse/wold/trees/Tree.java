@@ -42,7 +42,6 @@ public class Tree {
      * @return
      */
     private double randomTreePosition(int treesIndex){
-        System.out.println(randomSupplier.noise(treesIndex * seed));
         return randomSupplier.noise(treesIndex);
     }
 
@@ -62,6 +61,7 @@ public class Tree {
      * @param maxX
      */
     public void createInRange(int minX, int maxX){
+
         int treesIndex = minX;
         while (treesIndex < maxX){
             if(randomTreePosition(treesIndex) >= 0.1){
@@ -76,43 +76,43 @@ public class Tree {
      * @param treesIndex
      */
     private void createTree(int treesIndex){
-        Vector2 height = Vector2.RIGHT;
-        Block block = new Block(Vector2.RIGHT,null);
+//        Vector2 height = Vector2.RIGHT;
+//        Block block = new Block(Vector2.RIGHT,null);
         double treesHeight =
                 Math.abs(randomTreePosition(treesIndex))*(MAX_TREE_HEIGHT - MIN_TREE_HEIGHT) + MIN_TREE_HEIGHT;
         for (int i = 1; i < treesHeight + 1; i++) {
-            block = new Block(new Vector2(treesIndex,
+            Block block = new Block(new Vector2(treesIndex,
                     groundHeightFunction.apply((float)treesIndex) - (i * Block.SIZE)),
                     new RectangleRenderable(ColorSupplier.approximateColor(TREE_COLOR)));
             block.setTag(TREE_HERE);
             gameObjectCollection.addGameObject(block, treeLayer);
         }
-        createLeaf(treesIndex ,block);
+//        createLeaf(treesIndex ,block);
     }
 
-    /**
-     *
-     * @param treesIndex
-     */
-    private void createLeaf(int treesIndex, Block block){
-        int leafSize = 0;
-        Vector2 leafHeight = block.getTopLeftCorner().add(new
-                Vector2(-Block.SIZE*leafSize,-Block.SIZE*leafSize));
-        for (int i = 0; i < leafSize*2; i++) {
-            for (int j = 0; j < leafSize*2; j++) {
-                if(leafRandom()) {
-                    Leaf leaf = new Leaf(leafHeight,
-                            new RectangleRenderable(ColorSupplier.approximateColor(LEAF_COLOR)),
-                            gameObjectCollection,
-                            treeLayer + 1);
-                    leaf.setTag(LEAF_HERE);
-                    gameObjectCollection.addGameObject(leaf, treeLayer + 1);
-                    block.addComponent(deltaTime -> leaf.update(deltaTime));
-                }
-                leafHeight = leafHeight.add(Vector2.RIGHT.mult(Block.SIZE));
-            }
-            leafHeight = leafHeight.add(new Vector2(0, Block.SIZE));
-            leafHeight = leafHeight.add(Vector2.LEFT.mult(2*Block.SIZE*leafSize));
-        }
-    }
+//    /**
+//     *
+//     * @param treesIndex
+//     */
+//    private void createLeaf(int treesIndex, Block block){
+//        int leafSize = 0;
+//        Vector2 leafHeight = block.getTopLeftCorner().add(new
+//                Vector2(-Block.SIZE*leafSize,-Block.SIZE*leafSize));
+//        for (int i = 0; i < leafSize*2; i++) {
+//            for (int j = 0; j < leafSize*2; j++) {
+//                if(leafRandom()) {
+//                    Leaf leaf = new Leaf(leafHeight,
+//                            new RectangleRenderable(ColorSupplier.approximateColor(LEAF_COLOR)),
+//                            gameObjectCollection,
+//                            treeLayer + 1);
+//                    leaf.setTag(LEAF_HERE);
+//                    gameObjectCollection.addGameObject(leaf, treeLayer + 1);
+//                    block.addComponent(deltaTime -> leaf.update(deltaTime));
+//                }
+//                leafHeight = leafHeight.add(Vector2.RIGHT.mult(Block.SIZE));
+//            }
+//            leafHeight = leafHeight.add(new Vector2(0, Block.SIZE));
+//            leafHeight = leafHeight.add(Vector2.LEFT.mult(2*Block.SIZE*leafSize));
+//        }
+//    }
 }
