@@ -4,13 +4,9 @@ import pepse.wold.Terrain;
 
 
 public class Main {
-    public static void main(String[] args) {
-    }
-
-    public void rotemTesting(){
-        System.out.println("Hello world!");
-        System.out.println("rotem");
-        System.out.println("rotem");
-        System.out.println("rotem");
-    }
+//    public static void main(String[] args) {
+//        for(int i = 0; i <20; i++) {
+//            System.out.println(heightSupplier.noise(15));
+//        }
+//    }
 }

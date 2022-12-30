@@ -35,13 +35,15 @@ public class PepseGameManager extends GameManager {
     public void initializeGame(ImageReader imageReader, SoundReader soundReader, UserInputListener inputListener, WindowController windowController) {
         super.initializeGame(imageReader, soundReader, inputListener, windowController);
         Sky.create(this.gameObjects(), windowController.getWindowDimensions(), SKY_AND_NIGHT_BACKGROUND);
-
         Terrain terrain = new Terrain(gameObjects(),
                 TERRAIN_BACKGROUND,
                 windowController.getWindowDimensions(),
-                50);
+                20);
 
         terrain.createInRange(-5 ,(int)windowController.getWindowDimensions().x()/30 + 5);
+        for(int i = 0; i < 20; i ++){
+            System.out.println(terrain.groundHeightAt(20));
+        }
 
         // this is where we add the background for night and day
         Night.create(this.gameObjects(),
