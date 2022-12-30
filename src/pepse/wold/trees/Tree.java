@@ -61,13 +61,14 @@ public class Tree {
      * @param maxX
      */
     public void createInRange(int minX, int maxX){
-
+        System.out.println("min = " + minX);
+        System.out.println("max = " + maxX);
         int treesIndex = minX;
         while (treesIndex < maxX){
-            if(randomTreePosition(treesIndex) >= 0.1){
+            if(randomTreePosition(treesIndex * seed) >= 0.5){
                 createTree(treesIndex);
             }
-            treesIndex += Block.SIZE;
+            treesIndex += 1;
         }
     }
 
@@ -81,9 +82,10 @@ public class Tree {
         double treesHeight =
                 Math.abs(randomTreePosition(treesIndex))*(MAX_TREE_HEIGHT - MIN_TREE_HEIGHT) + MIN_TREE_HEIGHT;
         for (int i = 1; i < treesHeight + 1; i++) {
-            Block block = new Block(new Vector2(treesIndex,
+            Block block = new Block(new Vector2(treesIndex * Block.SIZE,
                     groundHeightFunction.apply((float)treesIndex) - (i * Block.SIZE)),
                     new RectangleRenderable(ColorSupplier.approximateColor(TREE_COLOR)));
+            System.out.println(groundHeightFunction.apply((float)treesIndex) - (i * Block.SIZE));
             block.setTag(TREE_HERE);
             gameObjectCollection.addGameObject(block, treeLayer);
         }
