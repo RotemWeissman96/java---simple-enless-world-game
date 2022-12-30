@@ -17,10 +17,12 @@ import pepse.wold.daynight.SunHalo;
 import pepse.wold.trees.Tree;
 
 import java.awt.*;
+import java.util.Random;
 
 public class PepseGameManager extends GameManager {
     private static final float NIGHT_CYCLE = 10;
     private static final float SUN_CYCLE = 500;
+    private static final int OUT_OF_WINDOW_BLOCKS = 5
     private static final int SKY_AND_NIGHT_BACKGROUND= Layer.BACKGROUND;
     private static final int SUN_BACKGROUND = SKY_AND_NIGHT_BACKGROUND + 1;
     private static final int HALO_SUN_BACKGROUND = SUN_BACKGROUND + 1;
@@ -35,15 +37,16 @@ public class PepseGameManager extends GameManager {
     public void initializeGame(ImageReader imageReader, SoundReader soundReader, UserInputListener inputListener, WindowController windowController) {
         super.initializeGame(imageReader, soundReader, inputListener, windowController);
         Sky.create(this.gameObjects(), windowController.getWindowDimensions(), SKY_AND_NIGHT_BACKGROUND);
+        Random rand = new Random();
+        int seed = rand.nextInt(1000);
+
+        // this is where we add the terrain
         Terrain terrain = new Terrain(gameObjects(),
                 TERRAIN_BACKGROUND,
                 windowController.getWindowDimensions(),
-                20);
-
-        terrain.createInRange(-5 ,(int)windowController.getWindowDimensions().x()/30 + 5);
-        for(int i = 0; i < 20; i ++){
-            System.out.println(terrain.groundHeightAt(20));
-        }
+                seed);
+        terrain.createInRange(-OUT_OF_WINDOW_BLOCKS,
+                        (int)windowController.getWindowDimensions().x()/Block.SIZE + OUT_OF_WINDOW_BLOCKS);
 
         // this is where we add the background for night and day
         Night.create(this.gameObjects(),

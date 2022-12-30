@@ -41,7 +41,6 @@ public class Terrain {
         int maxBlockIndexToSee = (int)windowDimensions.y()/Block.SIZE + MAX_VARIATION_HEIGHT_FROM_0;
         for (int col = minX; col <= maxX; col ++) {
             int groundHeightAtCol = (int)(groundHeightAt(col))/Block.SIZE;
-//            System.out.println("groundHeight at " + col + " = " + groundHeightAtCol);
             addTerrainBlock(groundHeightAtCol, col, 1);
             for (int row = groundHeightAtCol + 1; row <= maxBlockIndexToSee; row ++) {
                 addTerrainBlock(row, col, Layer.STATIC_OBJECTS);
