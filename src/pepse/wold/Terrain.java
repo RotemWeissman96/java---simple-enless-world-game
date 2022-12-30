@@ -6,7 +6,7 @@ import danogl.gui.rendering.RectangleRenderable;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 import pepse.util.ColorSupplier;
-import pepse.util.GroundHeightSupplier;
+import pepse.util.ConstantRandomSupplier;
 
 import java.awt.*;
 
@@ -17,7 +17,7 @@ public class Terrain {
     private int groundHeightAtX0;
     private final GameObjectCollection gameObjects;
     private final int groundLayer;
-    private final GroundHeightSupplier heightSupplier;
+    private final ConstantRandomSupplier heightSupplier;
     Vector2 windowDimensions;
 
     public Terrain(GameObjectCollection gameObjects, int groundLayer, Vector2 windowDimensions, int seed) {
@@ -27,7 +27,7 @@ public class Terrain {
         groundHeightAtX0 = (int)(windowDimensions.y() * SCREEN_PERCENTAGE_FOR_GROUND_HEIGHT_AT_0);
         groundHeightAtX0 = (groundHeightAtX0/Block.SIZE) * Block.SIZE;
         // make sure that the index is dividable by 30
-        this.heightSupplier = new GroundHeightSupplier(seed);
+        this.heightSupplier = new ConstantRandomSupplier(seed);
         this.windowDimensions = windowDimensions;
     }
 

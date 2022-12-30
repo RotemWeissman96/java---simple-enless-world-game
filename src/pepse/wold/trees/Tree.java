@@ -4,6 +4,7 @@ import danogl.collisions.GameObjectCollection;
 import danogl.gui.rendering.RectangleRenderable;
 import danogl.util.Vector2;
 import pepse.util.ColorSupplier;
+import pepse.util.ConstantRandomSupplier;
 import pepse.wold.Block;
 
 import java.awt.*;
@@ -22,38 +23,28 @@ public class Tree {
     private final GameObjectCollection gameObjectCollection;
     private final int treeLayer;
     private final Function<Float, Float> groundHeightFunction;
+    private final ConstantRandomSupplier randomSupplier;
     private final int seed;
 
     public Tree(GameObjectCollection gameObjectCollection,
                 int layer,
-                Function<Float, Float> heightFunction,
-                int seed){
+                Function<Float, Float> heightFunction){
         this.gameObjectCollection = gameObjectCollection;
         treeLayer = layer;
         this.groundHeightFunction = heightFunction;
-        this.seed = seed;
+        Random random = new Random();
+        this.seed = random.nextInt(1000);
+        this.randomSupplier = new ConstantRandomSupplier(seed);
     }
 
     /**
      *
      * @return
      */
-    private int randomTreePosition(int treesIndex,int adds){
-//        for (int i = 0; i < 20; i++) {
-//            System.out.println((Objects.hash(treesIndex, seed)*13)%40);
-//        }
-////        System.out.println(Objects.hash(treesIndex, seed));
-//        Random random = new Random(Objects.hash(treesIndex, seed));
-        return (Objects.hash(treesIndex, seed)*13)%40;
+    private double randomTreePosition(int treesIndex){
+        System.out.println(randomSupplier.noise(treesIndex * seed));
+        return randomSupplier.noise(treesIndex);
     }
-
-    /**
-     *
-      * @return
-     */
-//    private int treesHeight(){
-//        return rand.nextInt(MAX_TREE_HEIGHT - MIN_TREE_HEIGHT) + MIN_TREE_HEIGHT;
-//    }
 
     /**
      *
@@ -65,48 +56,6 @@ public class Tree {
         return (adds < 7);
     }
 
-//    public void createInRange(int minX, int maxX) {
-//         float indexTreeX = minX;
-//         Vector2 height = Vector2.RIGHT;
-//         while (indexTreeX < maxX){
-//             if (randomCoin()){
-//                 Block block = new Block(Vector2.ZERO, null);
-//                 for (int i =1; i < treesHeight() + 1; i++) {
-//                     block = new Block(new Vector2(indexTreeX, heightFunction.apply(indexTreeX)-i*Block.SIZE),
-//                             new RectangleRenderable(ColorSupplier.approximateColor(TREE_COLOR)));//plant tree
-//                     block.setTag("TREE");
-//                     gameObjectCollection.addGameObject(block, treeLayer);
-//                     height = block.getTopLeftCorner();
-//                     }
-//                 int leavesSize = treesHeight()/3;
-//                 height = height.add(new Vector2(-Block.SIZE*leavesSize, -Block.SIZE*leavesSize));
-//                 for (int i = 0; i < leavesSize*2; i++) {//the leaves size is to 1 dirction, to init need 2
-//                     for (int j = 0; j < leavesSize*2; j++) {
-//                         if (leafRandom()) {
-////                             Leaf leaf = new Leaf(height, block, gameObjectCollection, leafLayer,
-////                                     function.apply(height.x()), seed);
-//                             Leaf leaf = new Leaf(height,
-//                                     new RectangleRenderable(ColorSupplier.approximateColor(LEAF_COLOR)),
-//                                     gameObjectCollection,
-//                                     treeLayer + 1);
-//                             gameObjectCollection.addGameObject(leaf, treeLayer);
-////                             block.addComponent(deltaTime -> leaf.update(deltaTime));
-//                             }
-//                         height = height.add(Vector2.RIGHT.mult(Block.SIZE));
-//                         }
-//                     height = height.add(new Vector2(0, Block.SIZE));
-//                     height = height.add(Vector2.LEFT.mult(2*Block.SIZE*leavesSize));
-//                     }
-//                 }
-////             else {
-////                 createSkullPilot(indexTreeX);
-////                 }
-//             indexTreeX+=Block.SIZE;
-//             }
-//         }
-
-
-
     /**
      * h
      * @param minX
@@ -115,7 +64,7 @@ public class Tree {
     public void createInRange(int minX, int maxX){
         int treesIndex = minX;
         while (treesIndex < maxX){
-            if(randomTreePosition(treesIndex,10) == 0){
+            if(randomTreePosition(treesIndex) >= 0.1){
                 createTree(treesIndex);
             }
             treesIndex += Block.SIZE;
@@ -129,9 +78,11 @@ public class Tree {
     private void createTree(int treesIndex){
         Vector2 height = Vector2.RIGHT;
         Block block = new Block(Vector2.RIGHT,null);
-        int treesHeight = randomTreePosition(treesIndex, 15);
-        for (int i = 0; i < treesHeight + 1 ; i++) {
-            block = new Block(new Vector2(treesIndex,  groundHeightFunction.apply((float)treesIndex) - (i* Block.SIZE)),
+        double treesHeight =
+                Math.abs(randomTreePosition(treesIndex))*(MAX_TREE_HEIGHT - MIN_TREE_HEIGHT) + MIN_TREE_HEIGHT;
+        for (int i = 1; i < treesHeight + 1; i++) {
+            block = new Block(new Vector2(treesIndex,
+                    groundHeightFunction.apply((float)treesIndex) - (i * Block.SIZE)),
                     new RectangleRenderable(ColorSupplier.approximateColor(TREE_COLOR)));
             block.setTag(TREE_HERE);
             gameObjectCollection.addGameObject(block, treeLayer);
@@ -144,7 +95,7 @@ public class Tree {
      * @param treesIndex
      */
     private void createLeaf(int treesIndex, Block block){
-        int leafSize = randomTreePosition(treesIndex, 15)/3;
+        int leafSize = 0;
         Vector2 leafHeight = block.getTopLeftCorner().add(new
                 Vector2(-Block.SIZE*leafSize,-Block.SIZE*leafSize));
         for (int i = 0; i < leafSize*2; i++) {

@@ -2,18 +2,18 @@ package pepse.util;
 
 import java.util.Random;
 
-public class GroundHeightSupplier {
+public class ConstantRandomSupplier {
     private double seed;
     private long default_size;
     private int[] p;
     private int[] permutation;
 
-    public GroundHeightSupplier(double seed) {
+    public ConstantRandomSupplier(double seed) {
         this.seed = seed;
         init();
     }
 
-    public GroundHeightSupplier() {
+    public ConstantRandomSupplier() {
         this.seed = new Random().nextGaussian() * 255;
         init();
     }
