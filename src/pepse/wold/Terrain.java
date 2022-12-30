@@ -45,7 +45,7 @@ public class Terrain {
                 addTerrainBlock(row, col, Layer.STATIC_OBJECTS);
             }
         }
-    }
+    }//
 
     private void addTerrainBlock(int row, int col, int layer) {
         Renderable blockRenderable =
