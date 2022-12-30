@@ -14,6 +14,9 @@ import java.util.Random;
  */
 public class Leaf extends Block {
     private static final Color LEAF_COLOR = new Color(50, 200, 30);
+    private final static int MAX_TIME = 30;
+    private final static int TRANSITION_TIME = 4;
+    private final static float ANGEL_LEAF = 10;
     private final GameObjectCollection gameObjectCollection;
     private final Vector2 topLeftCorner;
     private final int leafLayer;
@@ -27,7 +30,15 @@ public class Leaf extends Block {
         this.gameObjectCollection = gameObjectCollection;
         this.topLeftCorner = topLeftCorner;
         this.leafLayer = layer;
-        creatingScheduled();
+        creatingScheduled(); //calculating leaf angel
+    }
+
+    /**
+     *
+     * @param angel
+     */
+    private void calculatingLeafAngel(float angel){
+        this.renderer().setRenderableAngle((float)Math.sin(angel)*ANGEL_LEAF);
     }
 
     /**
@@ -36,7 +47,7 @@ public class Leaf extends Block {
     private void creatingScheduled(){
         new ScheduledTask(
                 this,
-                rand.nextInt(30),
+                rand.nextInt(MAX_TIME),
                 false,
                 () ->{
 //                    new Transition<Float>(
@@ -50,17 +61,17 @@ public class Leaf extends Block {
 //                            null
 //                    );
                     new Transition<Float>(this,
-                            this.renderer()::setRenderableAngle,
-                            1f,
-                            45f,
-                            Transition.LINEAR_INTERPOLATOR_FLOAT,
-                            10,
+                            this::calculatingLeafAngel,
+                            0f,
+                            (float) (2 *Math.PI),
+                            Transition.CUBIC_INTERPOLATOR_FLOAT,
+                            TRANSITION_TIME,
                             Transition.TransitionType.TRANSITION_BACK_AND_FORTH,
                             null);
                 }
         );
     }
-//
+
 
     @Override
     public void update(float deltaTime) {
