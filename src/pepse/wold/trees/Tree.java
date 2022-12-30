@@ -7,51 +7,60 @@ import pepse.util.ColorSupplier;
 import pepse.wold.Block;
 
 import java.awt.*;
+import java.util.Objects;
 import java.util.Random;
 import java.util.function.Function;
 
 public class Tree {
     private static final Color TREE_COLOR = new Color(100, 50, 20);
     private static final Color LEAF_COLOR = new Color(50, 200, 30);
-    private final Random rand = new Random();
+//    private final Random rand = new Random();
     private final static int MAX_TREE_HEIGHT = 15;
     private final static int MIN_TREE_HEIGHT = 8;
     private static final String TREE_HERE = "TREE";
     private static final String LEAF_HERE = "LEAF";
     private final GameObjectCollection gameObjectCollection;
     private final int treeLayer;
-    private final Function<Float, Float> heightFunction;
+    private final Function<Float, Float> groundHeightFunction;
+    private final int seed;
 
     public Tree(GameObjectCollection gameObjectCollection,
                 int layer,
-                Function<Float, Float> heightFunction){
+                Function<Float, Float> heightFunction,
+                int seed){
         this.gameObjectCollection = gameObjectCollection;
         treeLayer = layer;
-        this.heightFunction = heightFunction;
+        this.groundHeightFunction = heightFunction;
+        this.seed = seed;
     }
 
     /**
      *
      * @return
      */
-    private boolean randomCoin(){
-        int adds = rand.nextInt(10);
-        return (adds == 0);
+    private int randomTreePosition(int treesIndex,int adds){
+//        for (int i = 0; i < 20; i++) {
+//            System.out.println((Objects.hash(treesIndex, seed)*13)%40);
+//        }
+////        System.out.println(Objects.hash(treesIndex, seed));
+//        Random random = new Random(Objects.hash(treesIndex, seed));
+        return (Objects.hash(treesIndex, seed)*13)%40;
     }
 
     /**
      *
       * @return
      */
-    private int treesHeight(){
-        return rand.nextInt(MAX_TREE_HEIGHT - MIN_TREE_HEIGHT) + MIN_TREE_HEIGHT;
-    }
+//    private int treesHeight(){
+//        return rand.nextInt(MAX_TREE_HEIGHT - MIN_TREE_HEIGHT) + MIN_TREE_HEIGHT;
+//    }
 
     /**
      *
      * @return
      */
     private boolean leafRandom(){
+        Random rand =new Random();
         int adds = rand.nextInt(10);
         return (adds < 7);
     }
@@ -106,7 +115,7 @@ public class Tree {
     public void createInRange(int minX, int maxX){
         int treesIndex = minX;
         while (treesIndex < maxX){
-            if(randomCoin()){
+            if(randomTreePosition(treesIndex,10) == 0){
                 createTree(treesIndex);
             }
             treesIndex += Block.SIZE;
@@ -117,12 +126,12 @@ public class Tree {
      *
      * @param treesIndex
      */
-    private void createTree(float treesIndex){
+    private void createTree(int treesIndex){
         Vector2 height = Vector2.RIGHT;
         Block block = new Block(Vector2.RIGHT,null);
-        int treesHeight = treesHeight();
+        int treesHeight = randomTreePosition(treesIndex, 15);
         for (int i = 0; i < treesHeight + 1 ; i++) {
-            block = new Block(new Vector2(treesIndex,  heightFunction.apply(treesIndex) - (i* Block.SIZE)),
+            block = new Block(new Vector2(treesIndex,  groundHeightFunction.apply((float)treesIndex) - (i* Block.SIZE)),
                     new RectangleRenderable(ColorSupplier.approximateColor(TREE_COLOR)));
             block.setTag(TREE_HERE);
             gameObjectCollection.addGameObject(block, treeLayer);
@@ -134,8 +143,8 @@ public class Tree {
      *
      * @param treesIndex
      */
-    private void createLeaf(float treesIndex, Block block){
-        int leafSize = treesHeight()/3;
+    private void createLeaf(int treesIndex, Block block){
+        int leafSize = randomTreePosition(treesIndex, 15)/3;
         Vector2 leafHeight = block.getTopLeftCorner().add(new
                 Vector2(-Block.SIZE*leafSize,-Block.SIZE*leafSize));
         for (int i = 0; i < leafSize*2; i++) {

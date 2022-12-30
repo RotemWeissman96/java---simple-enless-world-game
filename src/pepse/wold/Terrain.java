@@ -32,9 +32,8 @@ public class Terrain {
     }
 
     public float groundHeightAt(float x) {
-
         return groundHeightAtX0 +
-                (float) Math.floor(heightSupplier.noise(x) * MAX_VARIATION_HEIGHT_FROM_0) * Block.SIZE;
+                (float) heightSupplier.noise(x) * MAX_VARIATION_HEIGHT_FROM_0 * Block.SIZE;
     }
 
     public void createInRange(int minX, int maxX) {

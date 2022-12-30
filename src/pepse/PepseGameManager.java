@@ -67,7 +67,7 @@ public class PepseGameManager extends GameManager {
                 HALO_COLOR
                 );
         // this is where we add the tree and the leaf.
-        Tree tree = new Tree(this.gameObjects(), TREE_BACKGROUND, terrain::groundHeightAt);
+        Tree tree = new Tree(this.gameObjects(), TREE_BACKGROUND, terrain::groundHeightAt,seed);
         int rightBoarder = 0;
         while (rightBoarder < (windowController.getWindowDimensions().x()/2)+ (5* Block.SIZE)){
             rightBoarder += Block.SIZE;
