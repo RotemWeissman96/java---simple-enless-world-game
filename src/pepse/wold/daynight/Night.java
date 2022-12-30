@@ -35,7 +35,6 @@ public class Night {
         night.setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
         gameObjects.addGameObject(night,layer);
         night.setTag(NIGHT);
-
         // transitioning form light to dark and vice versa
         new Transition<Float>(night,
                 night.renderer()::setOpaqueness,
@@ -44,8 +43,11 @@ public class Night {
                 Transition.CUBIC_INTERPOLATOR_FLOAT,
                 cycleLength,
                 Transition.TransitionType.TRANSITION_BACK_AND_FORTH,
-                null
-                );
+                Night::print);
         return night;
+    }
+
+    public static void print() {
+        System.out.println("mid day");
     }
 }

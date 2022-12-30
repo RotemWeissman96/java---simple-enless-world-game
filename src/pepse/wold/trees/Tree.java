@@ -65,7 +65,7 @@ public class Tree {
         System.out.println("max = " + maxX);
         int treesIndex = minX;
         while (treesIndex < maxX){
-            if(randomTreePosition(treesIndex * seed) >= 0.5){
+            if(randomTreePosition(treesIndex * seed) >= 0.4){
                 createTree(treesIndex);
             }
             treesIndex += 1;

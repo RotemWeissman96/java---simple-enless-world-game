@@ -13,9 +13,9 @@ public class Sun {
     private static final String SUN = "Sun";
     private static final int SUN_SIZE = 150;
     private static final float INITIALING_SUN = 0f;
-    private static final float MAX_ANGLE = 360f;
-    private static final float CENTER_Of_WINDOW = 2f;
-    private static final float RADIUS= 5f/6f;
+    private static final float MAX_ANGLE = (float) (2 * Math.PI);
+    private static final float CENTER_Of_WINDOW = 3f;
+    private static final float RADIUS_RATIO = 3f/6f;
 
 
     /**
@@ -25,10 +25,12 @@ public class Sun {
      * @param angle the angle where the sun needs to be from the center of the window dimensions
      */
     private static void calculatingSunNextPosition(GameObject sun,Vector2 windowDimensions, float angle){
-        float xParemeter = ((windowDimensions.x()/CENTER_Of_WINDOW) +
-                (float) (windowDimensions.y()/CENTER_Of_WINDOW * Math.cos(angle)));
-        float yParemeter =  ((windowDimensions.y()*RADIUS) +
-                (float) (windowDimensions.y()/CENTER_Of_WINDOW * Math.sin(angle)));
+        float focalX = windowDimensions.x() / 2;
+        float focalY = windowDimensions.y() * 0.7f;
+        float radiusA = windowDimensions.x() * RADIUS_RATIO;
+        float radiusB = windowDimensions.y() * RADIUS_RATIO;
+        float xParemeter = (float) (focalX + radiusA * Math.cos(angle - 0.5 * Math.PI));
+        float yParemeter = (float) (focalY + radiusB * Math.sin(angle - 0.5 * Math.PI));
         sun.setCenter(new Vector2(xParemeter,yParemeter));
     }
 
@@ -60,8 +62,11 @@ public class Sun {
                 Transition.LINEAR_INTERPOLATOR_FLOAT,
                 cycleLength,
                 Transition.TransitionType.TRANSITION_LOOP,
-                null
-        );
+                Sun::print);
         return sun;
+    }
+
+    public static void print(){
+        System.out.println("sun is up");
     }
 }
