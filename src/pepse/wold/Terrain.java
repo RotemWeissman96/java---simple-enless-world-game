@@ -33,6 +33,8 @@ public class Terrain {
 
     public float groundHeightAt(float x) {
         System.out.println(heightSupplier.noise(x) * MAX_VARIATION_HEIGHT_FROM_0);
+        float check = groundHeightAtX0 +
+                (float) heightSupplier.noise(x) * MAX_VARIATION_HEIGHT_FROM_0 * Block.SIZE;
         return groundHeightAtX0 +
                 (float) heightSupplier.noise(x) * MAX_VARIATION_HEIGHT_FROM_0 * Block.SIZE;
     }
