@@ -22,7 +22,7 @@ import java.util.Random;
 public class PepseGameManager extends GameManager {
     private static final float NIGHT_CYCLE = 10;
     private static final float SUN_CYCLE = 500;
-    private static final int OUT_OF_WINDOW_BLOCKS = 5
+    private static final int OUT_OF_WINDOW_BLOCKS = 5;
     private static final int SKY_AND_NIGHT_BACKGROUND= Layer.BACKGROUND;
     private static final int SUN_BACKGROUND = SKY_AND_NIGHT_BACKGROUND + 1;
     private static final int HALO_SUN_BACKGROUND = SUN_BACKGROUND + 1;
