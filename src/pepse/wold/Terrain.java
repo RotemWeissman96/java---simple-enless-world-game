@@ -40,12 +40,12 @@ public class Terrain {
         int maxBlockIndexToSee = (int)windowDimensions.y()/Block.SIZE + MAX_VARIATION_HEIGHT_FROM_0;
         for (int col = minX; col <= maxX; col ++) {
             int groundHeightAtCol = (int)(groundHeightAt(col))/Block.SIZE;
-            addTerrainBlock(groundHeightAtCol, col, 1);
+            addTerrainBlock(groundHeightAtCol, col, groundLayer);
             for (int row = groundHeightAtCol + 1; row <= maxBlockIndexToSee; row ++) {
-                addTerrainBlock(row, col, Layer.STATIC_OBJECTS);
+                addTerrainBlock(row, col, groundLayer+1);
             }
         }
-    }//
+    }
 
     private void addTerrainBlock(int row, int col, int layer) {
         Renderable blockRenderable =

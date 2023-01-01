@@ -25,8 +25,8 @@ public class PepseGameManager extends GameManager {
     private static final int SKY_AND_NIGHT_BACKGROUND= Layer.BACKGROUND;
     private static final int SUN_BACKGROUND = SKY_AND_NIGHT_BACKGROUND + 1;
     private static final int HALO_SUN_BACKGROUND = SUN_BACKGROUND + 1;
-    private static final int TERRAIN_BACKGROUND = HALO_SUN_BACKGROUND + 1;
-    private static final int TREE_BACKGROUND = HALO_SUN_BACKGROUND + 5;
+    private static final int TERRAIN_BACKGROUND = HALO_SUN_BACKGROUND + 20;
+    private static final int TREE_BACKGROUND = TERRAIN_BACKGROUND + 20;
     private static final Color HALO_COLOR = new Color(255, 255, 0, 20);
     public static void main(String[] args) {
         new PepseGameManager().run();
@@ -65,11 +65,16 @@ public class PepseGameManager extends GameManager {
                 sun,
                 HALO_COLOR
                 );
+
         // this is where we add the tree and the leaf.
         Tree tree = new Tree(this.gameObjects(), TREE_BACKGROUND, terrain::groundHeightAt);
         tree.createInRange(-OUT_OF_WINDOW_BLOCKS,
                 (int)windowController.getWindowDimensions().x()/Block.SIZE + OUT_OF_WINDOW_BLOCKS);
-        //gameObjects().layers().shouldLayersCollide(TREE_BACKGROUND, TREE_BACKGROUND +1, true);
+//        gameObjects().layers().shouldLayersCollide(Layer.DEFAULT, TERRAIN_BACKGROUND, true);
+//        gameObjects().layers().shouldLayersCollide(Layer.DEFAULT, TREE_BACKGROUND+1 , true);
+        gameObjects().layers().shouldLayersCollide((TREE_BACKGROUND +1),
+                TERRAIN_BACKGROUND,
+                true);
     }
 
 
