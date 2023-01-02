@@ -66,9 +66,10 @@ public class Leaf extends Block {
      */
     private void creatingScheduled(){
         // the first ScheduledTask is for leafs to move in the wind
+        int save =  rand.nextInt(MAX_TIME);
         new ScheduledTask(
                 this,
-                rand.nextInt(MAX_TIME),
+                save,
                 false,
                 () ->{
                     horizontalTransition = new Transition<Float>(this,
@@ -84,7 +85,7 @@ public class Leaf extends Block {
         // the second is for leafs to fall of the tree to the ground
         new ScheduledTask(
                 this,
-                rand.nextInt(MAX_TIME),
+                (rand.nextInt(MAX_TIME-save)+save),
                 false,
                 this::fallLeaves
         );
@@ -97,6 +98,7 @@ public class Leaf extends Block {
     @Override
     public void onCollisionEnter(GameObject other, Collision collision) {
         super.onCollisionEnter(other, collision);
+        this.setVelocity(Vector2.ZERO);
         this.removeComponent(horizontalTransition);
     }
 }

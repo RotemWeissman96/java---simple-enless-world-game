@@ -62,11 +62,8 @@ public class Sun {
                 Transition.LINEAR_INTERPOLATOR_FLOAT,
                 cycleLength,
                 Transition.TransitionType.TRANSITION_LOOP,
-                Sun::print);
+                null);
         return sun;
     }
 
-    public static void print(){
-        System.out.println("sun is up");
-    }
 }
