@@ -87,7 +87,6 @@ public class PepseGameManager extends GameManager {
                                       Layer.DEFAULT,
                                       new Vector2(80, 100), inputListener,
                                       imageReader);
-        System.out.println(avatar);
         this.setCamera(new Camera(avatar,
                                   Vector2.ZERO,
                                   windowController.getWindowDimensions(),
