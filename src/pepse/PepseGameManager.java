@@ -11,7 +11,6 @@ import danogl.gui.WindowController;
 import danogl.gui.rendering.Camera;
 import danogl.gui.rendering.RectangleRenderable;
 import danogl.gui.rendering.Renderable;
-import pepse.util.ColorSupplier;
 import pepse.wold.Avatar;
 import pepse.wold.Block;
 import pepse.wold.Sky;
@@ -95,7 +94,7 @@ public class PepseGameManager extends GameManager {
                                   Vector2.ZERO,
                                   windowController.getWindowDimensions(),
                                   windowController.getWindowDimensions()));
-        Bird bird = new Bird(imageReader, avatar,gameObjects());
+        Bird bird = new Bird(imageReader, avatar,gameObjects(),windowController);
 
     }
 
@@ -111,8 +110,12 @@ public class PepseGameManager extends GameManager {
                 new Vector2(windowController.getWindowDimensions().add(new Vector2(1000,1000))),
                 blockRenderable);
         Block2.setTag("black2");
-        gameObjects.addGameObject(Block2, TREE_BACKGROUND );
+        gameObjects.addGameObject(Block2, TREE_BACKGROUND);
     }
 
+    @Override
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+    }
 }
 
