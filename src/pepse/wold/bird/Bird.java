@@ -12,8 +12,10 @@ public class Bird extends GameObject {
     private Avatar avatar;
     private AnimationRenderable animationRenderablee;
 
-    public Bird(ImageReader imageReader, Avatar avatar, GameObjectCollection gameObjects) {
-        super(new Vector2(100,70), new Vector2(35,35),
+    public Bird(ImageReader imageReader,
+                Avatar avatar,
+                GameObjectCollection gameObjects) {
+        super(new Vector2(100,70), new Vector2(50,50),
                 imageReader.readImage("assets/birds1.png", true));
         this.avatar =avatar;
         gameObjects.addGameObject(this, Layer.STATIC_OBJECTS);
@@ -35,9 +37,11 @@ public class Bird extends GameObject {
     public void update(float deltaTime) {
         super.update(deltaTime);
         if(this.getCenter().x() < avatar.getCenter().x()){
-            this.renderer().setIsFlippedHorizontally(false);
-        }else {
+            this.setVelocity(new Vector2(300,0));
             this.renderer().setIsFlippedHorizontally(true);
+        }else {
+            this.setVelocity(new Vector2(-300,0));
+            this.renderer().setIsFlippedHorizontally(false);
         }
     }
 }
