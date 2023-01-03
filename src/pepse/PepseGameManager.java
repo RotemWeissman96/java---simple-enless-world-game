@@ -7,6 +7,9 @@ import danogl.gui.ImageReader;
 import danogl.gui.SoundReader;
 import danogl.gui.UserInputListener;
 import danogl.gui.WindowController;
+import danogl.gui.rendering.RectangleRenderable;
+import danogl.gui.rendering.Renderable;
+import pepse.util.ColorSupplier;
 import pepse.wold.Avatar;
 import pepse.wold.Block;
 import pepse.wold.Sky;
@@ -18,6 +21,7 @@ import pepse.wold.daynight.SunHalo;
 import pepse.wold.trees.Tree;
 
 import java.awt.*;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 public class PepseGameManager extends GameManager {
@@ -71,6 +75,7 @@ public class PepseGameManager extends GameManager {
         Tree tree = new Tree(this.gameObjects(), TREE_BACKGROUND, terrain::groundHeightAt);
         tree.createInRange(-OUT_OF_WINDOW_BLOCKS,
                 (int)windowController.getWindowDimensions().x()/Block.SIZE + OUT_OF_WINDOW_BLOCKS);
+
         gameObjects().layers().shouldLayersCollide(Layer.DEFAULT, TERRAIN_BACKGROUND, true);
         gameObjects().layers().shouldLayersCollide(Layer.DEFAULT, TREE_BACKGROUND , true);
         gameObjects().layers().shouldLayersCollide((TREE_BACKGROUND +1),
