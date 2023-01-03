@@ -2,6 +2,7 @@ package pepse;
 
 import danogl.GameManager;
 import danogl.GameObject;
+import danogl.collisions.GameObjectCollection;
 import danogl.collisions.Layer;
 import danogl.gui.ImageReader;
 import danogl.gui.SoundReader;
@@ -15,6 +16,7 @@ import pepse.wold.Avatar;
 import pepse.wold.Block;
 import pepse.wold.Sky;
 import pepse.wold.Terrain;
+import pepse.wold.bird.Bird;
 import pepse.wold.daynight.Night;
 import pepse.wold.daynight.Sun;
 import danogl.util.Vector2;
@@ -91,7 +93,24 @@ public class PepseGameManager extends GameManager {
                                   Vector2.ZERO,
                                   windowController.getWindowDimensions(),
                                   windowController.getWindowDimensions()));
+        Bird bird = new Bird(imageReader, avatar,gameObjects());
+
     }
 
+    private void checking_leaf_creation(GameObjectCollection gameObjects, WindowController windowController){
+        Renderable blockRenderable =
+                new RectangleRenderable(Color.BLACK);
+        Block Block1 = new Block(
+                new Vector2(windowController.getWindowDimensions().add(new Vector2(1000,1000))),
+                blockRenderable);
+        Block1.setTag("black1");
+        gameObjects.addGameObject(Block1, TREE_BACKGROUND +1);
+        Block Block2 = new Block(
+                new Vector2(windowController.getWindowDimensions().add(new Vector2(1000,1000))),
+                blockRenderable);
+        Block2.setTag("black2");
+        gameObjects.addGameObject(Block2, TREE_BACKGROUND );
+    }
 
 }
+
