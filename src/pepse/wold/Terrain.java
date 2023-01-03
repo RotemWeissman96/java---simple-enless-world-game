@@ -21,7 +21,6 @@ public class Terrain {
     Vector2 windowDimensions;
 
     public Terrain(GameObjectCollection gameObjects, int groundLayer, Vector2 windowDimensions, int seed) {
-
         this.gameObjects = gameObjects;
         this.groundLayer = groundLayer;
         groundHeightAtX0 = (int)(windowDimensions.y() * SCREEN_PERCENTAGE_FOR_GROUND_HEIGHT_AT_0);
