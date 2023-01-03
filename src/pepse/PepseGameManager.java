@@ -7,6 +7,7 @@ import danogl.gui.ImageReader;
 import danogl.gui.SoundReader;
 import danogl.gui.UserInputListener;
 import danogl.gui.WindowController;
+import danogl.gui.rendering.Camera;
 import danogl.gui.rendering.RectangleRenderable;
 import danogl.gui.rendering.Renderable;
 import pepse.util.ColorSupplier;
@@ -82,7 +83,15 @@ public class PepseGameManager extends GameManager {
                 TERRAIN_BACKGROUND,
                 true);
 
-        Avatar.create(gameObjects(), Layer.DEFAULT, new Vector2(100, 100), inputListener, imageReader);
+        Avatar avatar = Avatar.create(gameObjects(),
+                                      Layer.DEFAULT,
+                                      new Vector2(100, 100), inputListener,
+                                      imageReader);
+        System.out.println(avatar);
+        this.setCamera(new Camera(avatar,
+                                  Vector2.ZERO,
+                                  windowController.getWindowDimensions(),
+                                  windowController.getWindowDimensions()));
     }
 
 
