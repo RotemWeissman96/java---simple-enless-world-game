@@ -42,7 +42,7 @@ public class Terrain {
             int groundHeightAtCol = (int)(groundHeightAt(col))/Block.SIZE;
             addTerrainBlock(groundHeightAtCol, col, groundLayer);
             for (int row = groundHeightAtCol + 1; row <= maxBlockIndexToSee; row ++) {
-                addTerrainBlock(row, col, groundLayer+1);
+                addTerrainBlock(row, col, Layer.STATIC_OBJECTS);
             }
         }
     }

@@ -43,7 +43,7 @@ public class Night {
                 Transition.CUBIC_INTERPOLATOR_FLOAT,
                 cycleLength,
                 Transition.TransitionType.TRANSITION_BACK_AND_FORTH,
-                Night::print);
+                null);
         return night;
     }
 

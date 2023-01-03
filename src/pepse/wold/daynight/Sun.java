@@ -66,4 +66,7 @@ public class Sun {
         return sun;
     }
 
+    private static void print(){
+        System.out.println("sun is up");
+    }
 }
