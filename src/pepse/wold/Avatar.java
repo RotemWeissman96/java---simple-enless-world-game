@@ -56,7 +56,7 @@ public class Avatar extends GameObject {
         for (int i = 0; i < motions.length; i ++) {
             String[] animationPaths = new String[numOfImagesInMotion[i]];
             for (int j = 0; j < numOfImagesInMotion[i]; j++) {
-                String str = "src/external/" + motions[i] + (j + 1) + ".png";
+                String str = "assets/" + motions[i] + (j + 1) + ".png";
                 animationPaths[j] = str;
             }
             motionsRenderable[i] = new AnimationRenderable(animationPaths, imageReader, true, 0.5);

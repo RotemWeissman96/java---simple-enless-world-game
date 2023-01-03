@@ -29,7 +29,7 @@ public class SunHalo {
         GameObject sunHalo = new GameObject(Vector2.ZERO,
                 new Vector2(HALO_SIZE,HALO_SIZE),
                 new OvalRenderable(color));
-        sun.setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
+        sunHalo.setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
         gameObjects.addGameObject(sunHalo, layer);
         sun.setTag(SUN_HALO);
         // we set the halo to be where the sun is

@@ -85,7 +85,7 @@ public class PepseGameManager extends GameManager {
 
         Avatar avatar = Avatar.create(gameObjects(),
                                       Layer.DEFAULT,
-                                      new Vector2(100, 100), inputListener,
+                                      new Vector2(80, 100), inputListener,
                                       imageReader);
         System.out.println(avatar);
         this.setCamera(new Camera(avatar,
