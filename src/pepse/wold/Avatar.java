@@ -5,6 +5,7 @@ import danogl.collisions.GameObjectCollection;
 import danogl.components.ScheduledTask;
 import danogl.gui.ImageReader;
 import danogl.gui.UserInputListener;
+import danogl.gui.rendering.AnimationRenderable;
 import danogl.gui.rendering.OvalRenderable;
 import danogl.gui.rendering.RectangleRenderable;
 import danogl.gui.rendering.Renderable;
@@ -21,12 +22,14 @@ public class Avatar extends GameObject {
 
     private final UserInputListener inputListener;
     private final ImageReader imageReader;
+    private float energy;
 
     public Avatar(Vector2 topLeftCorner, Renderable renderable, UserInputListener inputListener,
                   ImageReader imageReader) {
-        super(topLeftCorner, new Vector2(30, 90), renderable);
+        super(topLeftCorner, new Vector2(300, 300), renderable);
         this.inputListener = inputListener;
         this.imageReader = imageReader;
+        this.energy = 100;
 
     }
 
@@ -34,7 +37,9 @@ public class Avatar extends GameObject {
                                 int layer, Vector2 topLeftCorner,
                                 UserInputListener inputListener,
                                 ImageReader imageReader){
-        Renderable renderable = new OvalRenderable(AVATAR_COLOR);
+        String[] stand = new String[1];
+        stand[0] = "src/external/stand1_01.jpg";
+        Renderable renderable =imageReader.readImage("src/external/Untitled-2_02.jpg", true);
         Avatar avatar = new Avatar(topLeftCorner, renderable, inputListener, imageReader);
         avatar.physics().preventIntersectionsFromDirection(Vector2.ZERO);
         avatar.transform().setAccelerationY(GRAVITY);
@@ -57,7 +62,19 @@ public class Avatar extends GameObject {
                     () -> physics().preventIntersectionsFromDirection(Vector2.ZERO));
             return;
         }
-        if (inputListener.isKeyPressed(KeyEvent.VK_SPACE) && getVelocity().y() == 0)
-            transform().setVelocityY(VELOCITY_Y);
+        if (inputListener.isKeyPressed(KeyEvent.VK_SPACE)) {
+            if (getVelocity().y() == 0) {
+                transform().setVelocityY(VELOCITY_Y);
+            } else if (energy != 0) {
+                transform().setVelocityY(Math.max(VELOCITY_Y - 100, getVelocity().y() - 30));
+                this.energy -= 0.5f;
+            }
+        } else if (getVelocity().y() == 0) {
+            this.energy += 0.5f;
+        }
+    }
+
+    public float getEnergy(){
+        return this.energy;
     }
 }
