@@ -14,7 +14,12 @@ import danogl.util.Vector2;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+
 public class Avatar extends GameObject {
+    private static final int STAND = 0;
+    private static final int WALK = 1;
+    private static final int FLY = 2;
+
     private static final float VELOCITY_X = 400;
     private static final float VELOCITY_Y = -650;
     private static final float GRAVITY = 600;
@@ -51,7 +56,7 @@ public class Avatar extends GameObject {
         for (int i = 0; i < motions.length; i ++) {
             String[] animationPaths = new String[numOfImagesInMotion[i]];
             for (int j = 0; j < numOfImagesInMotion[i]; j++) {
-                String str = "src/external/" + motions[i] + Integer.toString(j+1) + ".png";
+                String str = "src/external/" + motions[i] + (j + 1) + ".png";
                 animationPaths[j] = str;
             }
             motionsRenderable[i] = new AnimationRenderable(animationPaths, imageReader, true, 0.5);
@@ -62,11 +67,19 @@ public class Avatar extends GameObject {
     public void update(float deltaTime) {
         super.update(deltaTime);
         float xVel = 0;
-        if (inputListener.isKeyPressed(KeyEvent.VK_LEFT))
+        if (inputListener.isKeyPressed(KeyEvent.VK_LEFT)) {
             xVel -= VELOCITY_X;
+            if (getVelocity().y() == 0) {
+                this.renderer().setRenderable(motionsRenderable[WALK]);
+                this.renderer().setIsFlippedHorizontally(true);
+            }
+        }
         if (inputListener.isKeyPressed(KeyEvent.VK_RIGHT)){
             xVel += VELOCITY_X;
-
+            if (getVelocity().y() == 0) {
+                this.renderer().setRenderable(motionsRenderable[WALK]);
+                this.renderer().setIsFlippedHorizontally(false);
+            }
         }
         transform().setVelocityX(xVel);
         if (inputListener.isKeyPressed(KeyEvent.VK_SPACE) && inputListener.isKeyPressed(KeyEvent.VK_DOWN)) {
@@ -84,6 +97,14 @@ public class Avatar extends GameObject {
             }
         } else if (getVelocity().y() == 0) {
             this.energy += 0.5f;
+        }
+
+        if (getVelocity().y() == 0 && getVelocity().x() == 0){
+            this.renderer().setRenderable(motionsRenderable[STAND]);
+        }
+        if (getVelocity().y() != 0){
+            this.renderer().setRenderable(motionsRenderable[FLY]);
+            this.renderer().setIsFlippedHorizontally(getVelocity().x() < 0);
         }
     }
 
