@@ -1,6 +1,7 @@
 package pepse.wold;
 
 import danogl.GameObject;
+import danogl.collisions.Collision;
 import danogl.collisions.GameObjectCollection;
 import danogl.components.ScheduledTask;
 import danogl.gui.ImageReader;
@@ -105,6 +106,14 @@ public class Avatar extends GameObject {
         if (getVelocity().y() != 0){
             this.renderer().setRenderable(motionsRenderable[FLY]);
             this.renderer().setIsFlippedHorizontally(getVelocity().x() < 0);
+        }
+    }
+
+    @Override
+    public void onCollisionEnter(GameObject other, Collision collision) {
+        super.onCollisionEnter(other, collision);
+        if (other.getTag().equals("ground")) {
+            this.setVelocity(new Vector2(this.getVelocity().x(), 0));
         }
     }
 
