@@ -1,5 +1,4 @@
 package pepse.wold.bird;
-
 import danogl.GameObject;
 import danogl.collisions.GameObjectCollection;
 import danogl.collisions.Layer;
@@ -31,17 +30,20 @@ public class Bird extends GameObject {
                 imageReader,
                 true,
                 0.5);
+        this.renderer().setRenderable(animationRenderablee);
     }
 
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        if(this.getCenter().x() < avatar.getCenter().x()){
+        if(this.getCenter().x() < avatar.getCenter().x()-5){
             this.setVelocity(new Vector2(300,0));
             this.renderer().setIsFlippedHorizontally(true);
-        }else {
+        }else if(this.getCenter().x() > avatar.getCenter().x()+5) {
             this.setVelocity(new Vector2(-300,0));
             this.renderer().setIsFlippedHorizontally(false);
+        }else {
+            setVelocity(Vector2.ZERO);
         }
     }
 }

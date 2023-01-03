@@ -79,6 +79,8 @@ public class PepseGameManager extends GameManager {
         tree.createInRange(-OUT_OF_WINDOW_BLOCKS,
                 (int)windowController.getWindowDimensions().x()/Block.SIZE + OUT_OF_WINDOW_BLOCKS);
 
+        checking_leaf_creation(this.gameObjects(), windowController);
+
         gameObjects().layers().shouldLayersCollide(Layer.DEFAULT, TERRAIN_BACKGROUND, true);
         gameObjects().layers().shouldLayersCollide(Layer.DEFAULT, TREE_BACKGROUND , true);
         gameObjects().layers().shouldLayersCollide((TREE_BACKGROUND +1),
