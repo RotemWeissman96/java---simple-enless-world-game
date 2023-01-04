@@ -5,12 +5,12 @@ import danogl.collisions.Collision;
 import danogl.collisions.GameObjectCollection;
 import danogl.collisions.Layer;
 import danogl.gui.ImageReader;
-import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
+import java.util.Objects;
+
 public class Feces extends GameObject{
-    private Bird bird;
-    private GameObjectCollection gameObjects;
+    private final GameObjectCollection gameObjects;
 
 
     public Feces(Bird bird, ImageReader imageReader, GameObjectCollection gameObjects) {
@@ -20,11 +20,14 @@ public class Feces extends GameObject{
         this.setTag("feces");
         gameObjects.addGameObject(this, Layer.DEFAULT);
         this.setVelocity(new Vector2(0, 100));
+        this.gameObjects = gameObjects;
     }
 
-//    @Override
-//    public void onCollisionEnter(GameObject other, Collision collision) {
-//        super.onCollisionEnter(other, collision);
-//        gameObjects.removeGameObject(this,Layer.DEFAULT);
-//    }
+    @Override
+    public void onCollisionEnter(GameObject other, Collision collision) {
+        super.onCollisionEnter(other, collision);
+        if(!Objects.equals(other.getTag(), "Bird")){
+            gameObjects.removeGameObject(this,Layer.DEFAULT);
+        }
+    }
 }

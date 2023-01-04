@@ -17,9 +17,9 @@ public class Bird extends GameObject {
     private final int VELOCITY_BIRD = 300;
     private final double SPEED_PHOTO = 0.5;
     private final String BIRD ="Bird";
-    private Random rand = new Random();
-    private ImageReader imageReader;
-    private GameObjectCollection gameObjects;
+    private final Random rand = new Random();
+    private final ImageReader imageReader;
+    private final GameObjectCollection gameObjects;
 
     public Bird(ImageReader imageReader,
                 Avatar avatar,
