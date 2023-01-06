@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class SunHalo {
     private static final int HALO_SIZE = 400;
-    private static final String SUN_HALO = "Sun Halo";
+    private static final String SUN_HALO = "SUN HALO";
 
     /**
      * a static function to create the sun halo

@@ -11,23 +11,29 @@ import pepse.wold.Avatar;
 import java.util.Random;
 
 public class Bird extends GameObject {
+    private final static int BIRD_PHOTO = 4;
+    private final static int SPACE_FROM_AVATAR = 5;
+    private final static int VELOCITY_BIRD = 300;
+    private final static int RANDOM_FECES = 200;
+    private static final int BIRD_SIZE = 50;
+    private final static double SPEED_PHOTO = 0.5;
+    private final static String BIRD ="BIRD";
+
     private final Avatar avatar;
-    private final int BIRD_PHOTO = 4;
-    private final int SPACE_FROM_AVATAR = 5;
-    private final int VELOCITY_BIRD = 300;
-    private final double SPEED_PHOTO = 0.5;
-    private final String BIRD ="Bird";
     private final Random rand = new Random();
     private final ImageReader imageReader;
     private final GameObjectCollection gameObjects;
 
+    /**
+     *the constructor for the bird
+     */
     public Bird(ImageReader imageReader,
                 Avatar avatar,
                 GameObjectCollection gameObjects,
                 WindowController windowController) {
         super(new Vector2(windowController.getWindowDimensions().x()/5,
                         windowController.getWindowDimensions().y()/15),
-                new Vector2(50,50),
+                new Vector2(BIRD_SIZE,BIRD_SIZE),
                 imageReader.readImage("assets/birds1.png", true));
         this.imageReader = imageReader;
         this.gameObjects =gameObjects;
@@ -37,6 +43,9 @@ public class Bird extends GameObject {
         this.setTag(BIRD);
     }
 
+    /**
+     * this is where we create the animation renderer for the bird
+     */
     private void createAnimationRenderablesBird(ImageReader imageReader) {
         String[] animationPaths = new String[BIRD_PHOTO];
         for (int j = 1; j < BIRD_PHOTO+1; j++) {
@@ -49,6 +58,9 @@ public class Bird extends GameObject {
         this.renderer().setRenderable(animationRenderablee);
     }
 
+    /**
+     * we update the bird that it should always follow the avatar
+     */
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
@@ -61,7 +73,7 @@ public class Bird extends GameObject {
         }else {
             setVelocity(Vector2.ZERO);
         }
-        if(rand.nextInt(100) ==0){
+        if(rand.nextInt(RANDOM_FECES) ==0){
             new Feces(this,imageReader, gameObjects);
         }
     }

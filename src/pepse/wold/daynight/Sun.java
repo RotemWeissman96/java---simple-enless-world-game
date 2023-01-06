@@ -10,11 +10,10 @@ import danogl.util.Vector2;
 import java.awt.*;
 
 public class Sun {
-    private static final String SUN = "Sun";
+    private static final String SUN = "SUN";
     private static final int SUN_SIZE = 150;
     private static final float INITIALING_SUN = 0f;
     private static final float MAX_ANGLE = (float) (2 * Math.PI);
-    private static final float CENTER_Of_WINDOW = 3f;
     private static final float RADIUS_RATIO = 3f/6f;
 
 
@@ -66,7 +65,4 @@ public class Sun {
         return sun;
     }
 
-    private static void print(){
-        System.out.println("sun is up");
-    }
 }
